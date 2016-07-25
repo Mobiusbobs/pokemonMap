@@ -943,6 +943,7 @@
 		F8F2FB2A1D45EB30000893AF /* pokemon.fr.json in Resources */ = {isa = PBXBuildFile; fileRef = F8F2FB261D45EB30000893AF /* pokemon.fr.json */; };
 		F8F2FB2B1D45EB30000893AF /* pokemon.zh_cn.json in Resources */ = {isa = PBXBuildFile; fileRef = F8F2FB271D45EB30000893AF /* pokemon.zh_cn.json */; };
 		F8F2FB3F1D45FCDE000893AF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F2FB3E1D45FCDE000893AF /* MapKit.framework */; };
+		F8F2FB431D466C33000893AF /* location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F8F2FB421D466C33000893AF /* location.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1921,6 +1922,7 @@
 		F8F2FB261D45EB30000893AF /* pokemon.fr.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokemon.fr.json; sourceTree = "<group>"; };
 		F8F2FB271D45EB30000893AF /* pokemon.zh_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokemon.zh_cn.json; sourceTree = "<group>"; };
 		F8F2FB3E1D45FCDE000893AF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F8F2FB421D466C33000893AF /* location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = location.gpx; path = "../../../../Downloads/pokemon-go-keyboard-master/location.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1975,6 +1977,7 @@
 		096A5BF91D45CD21004D23E6 /* PokemonMap */ = {
 			isa = PBXGroup;
 			children = (
+				F8F2FB421D466C33000893AF /* location.gpx */,
 				096A5C5D1D4630CE004D23E6 /* API */,
 				096A5C3B1D461A86004D23E6 /* Model */,
 				096A5C371D461A63004D23E6 /* ViewController */,
@@ -3835,6 +3838,7 @@
 				F8F2F82A1D45EADB000893AF /* 205.png in Resources */,
 				F8F2F8361D45EADB000893AF /* 214.png in Resources */,
 				F8F2F8281D45EADB000893AF /* 203.png in Resources */,
+				F8F2FB431D466C33000893AF /* location.gpx in Resources */,
 				F8F2F8441D45EADB000893AF /* 227.png in Resources */,
 				F8F2FA3E1D45EADB000893AF /* 614.png in Resources */,
 				F8F2FA1C1D45EADB000893AF /* 586.png in Resources */,

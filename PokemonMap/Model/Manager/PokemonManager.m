@@ -87,6 +87,8 @@
             subscribeNext:^(NSArray *array) {
                 @strongify(self);
                 self.pokemonList = array;
+            } error:^(NSError *error) {
+                [AlertView showError:error withTitle:@"Error"];
             }];
 }
 

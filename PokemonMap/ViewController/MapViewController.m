@@ -60,7 +60,7 @@
 {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
                                                             longitude:151.20
-                                                                 zoom:6];
+                                                                 zoom:16];
     
     GMSMapView *mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
     [self.view addSubview:mapView];
@@ -81,7 +81,7 @@
          
          GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
                                                                  longitude:currentLocation.coordinate.longitude
-                                                                      zoom:6];
+                                                                      zoom:16];
          self.mapView.camera = camera;
     }];
     
