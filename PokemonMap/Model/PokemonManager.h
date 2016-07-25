@@ -6,11 +6,18 @@
 //  Copyright © 2016年 Mobiusbobs. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa.h>
 
+
 @interface PokemonManager : NSObject
 
-+ (RACSignal *)getPokemonList;
+@property (nonatomic, strong, readonly) CLLocation *currentLocation;
+@property (nonatomic, strong, readonly) NSArray *pokemonList;
+
++ (instancetype)sharedManager;
+- (void)reloadPokemonList;
+
 
 @end

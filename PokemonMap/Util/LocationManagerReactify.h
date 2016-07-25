@@ -12,5 +12,5 @@
 @interface LocationManagerReactify : NSObject
 
 + (RACSignal *)currentLocationSignal;
-
++ (RACSignal *)getCurrentLocationSignal;
 @end

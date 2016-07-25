@@ -14,6 +14,26 @@
 + (RACSignal *)currentLocationSignal
 {
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+        [locMgr subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+            if (status == INTULocationStatusSuccess) {
+                [subscriber sendNext:currentLocation];
+                [subscriber sendCompleted];
+            }
+            else if (status == INTULocationStatusTimedOut) {
+                [subscriber sendError:[self errorWithDescription:@"TimeOut"]];
+            }
+            else {
+                [subscriber sendError:[self errorWithDescription:@"Error"]];
+            }
+        }];
+        return nil;
+    }];
+}
+
++ (RACSignal *)getCurrentLocationSignal
+{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
         INTULocationManager *locMgr = [INTULocationManager sharedInstance];
         [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyRoom
