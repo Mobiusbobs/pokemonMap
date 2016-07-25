@@ -17,7 +17,7 @@
 @property (nonatomic, strong, readonly) NSArray *pokemonList;
 
 + (instancetype)sharedManager;
-- (void)reloadPokemonList;
+- (RACDisposable *)reloadPokemonList;
 
 
 @end

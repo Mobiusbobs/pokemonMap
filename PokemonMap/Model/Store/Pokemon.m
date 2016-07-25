@@ -14,9 +14,9 @@
 {
     self = [super init];
     
-    self.uniqueId = data[@"id"];
+    self.uniqueId = [data[@"id"] stringValue];
     self.expirationTime = [NSDate dateWithTimeIntervalSince1970:[data[@"expiration_time"] doubleValue]];
-    self.pokemonId = data[@"pokemonId"];
+    self.pokemonId = [data[@"pokemonId"] stringValue];
     self.lat = [data[@"latitude"] floatValue];
     self.lng = [data[@"longitude"] floatValue];
     

@@ -7,20 +7,24 @@
 //
 
 #import "PokemonManager.h"
-#import "APIClient+Pokemon.h"
-#import "LocationManagerReactify.h"
-#import "Pokemon.h"
-
+// Third Party
 #import <INTULocationManager/INTULocationManager.h>
 #import <BlocksKit.h>
 
+// Model
+#import "Pokemon.h"
+
+// Other
 #import "AlertView.h"
+#import "APIClient+Pokemon.h"
+#import "LocationManagerReactify.h"
+
+
 
 @interface PokemonManager ()
 
 @property (nonatomic, strong, readwrite) CLLocation *currentLocation;
 @property (nonatomic, strong, readwrite) NSArray *pokemonList;
-
 @property (nonatomic, strong, readonly) RACSubject *reloadTrigger;
 
 @end
@@ -60,17 +64,12 @@
     } error:^(NSError *error) {
         [AlertView showError:error withTitle:@"Error"];
     }];
-    
-    RAC(self, pokemonList) = [self.reloadTrigger flattenMap:^RACStream *(id value) {
-        @strongify(self);
-        return [self getPokemonList];
-    }];
 }
 
-- (RACSignal *)getPokemonList
+- (RACSignal *)getPokemonListWithLocation:(CLLocation *)location
 {
-    CGFloat latitude = self.currentLocation.coordinate.latitude;
-    CGFloat longitude = self.currentLocation.coordinate.longitude;
+    CGFloat latitude = location.coordinate.latitude;
+    CGFloat longitude = location.coordinate.longitude;
     
     return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",latitude]
                                                         Lng:[NSString stringWithFormat:@"%f",longitude]]
@@ -81,17 +80,21 @@
             }];
 }
 
-- (RACSubject *)reloadTrigger
+- (RACDisposable *)reloadPokemonList
 {
-    if (!_reloadTrigger) {
-        _reloadTrigger = [RACSubject subject];
-    }
-    
-    return _reloadTrigger;
+    @weakify(self);
+    return [[self getPokemonListWithLocation:self.currentLocation]
+            subscribeNext:^(NSArray *array) {
+                @strongify(self);
+                self.pokemonList = array;
+            }];
 }
 
-- (void)reloadPokemonList
+- (CLLocation *)currentLocation
 {
-    [self.reloadTrigger sendNext:@1];
+    if (!_currentLocation) {
+        _currentLocation = [[CLLocation alloc] initWithLatitude:37.787359 longitude:-122.408227];
+    }
+    return _currentLocation;
 }
 @end

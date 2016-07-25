@@ -10,16 +10,21 @@
 
 // Third Party
 #import <GoogleMaps/GoogleMaps.h>
+#import <BlocksKit.h>
 
+// Model
 #import "PokemonManager.h"
+#import "Pokemon.h"
 
+#import "PokemonMarker.h"
 
 
 @interface MapViewController ()
 
 @property (nonatomic, weak) GMSMapView *mapView;
 
-@property (nonatomic, strong) PokemonManager *manager ;
+@property (nonatomic, strong) PokemonManager *manager;
+@property (nonatomic, strong) NSArray *pokemonMarkers;
 
 @end
 
@@ -80,7 +85,24 @@
          self.mapView.camera = camera;
     }];
     
-    
+    [[RACObserve(self.manager, pokemonList) ignore:nil]
+     subscribeNext:^(NSArray *pokemons) {
+        @strongify(self);
+         if (self.pokemonMarkers) {
+             [self.pokemonMarkers bk_each:^(PokemonMarker *marker) {
+                 marker.map = nil;
+             }];
+         }
+         
+         self.pokemonMarkers = [[pokemons bk_select:^BOOL(Pokemon *pokemon) {
+             return pokemon && [pokemon isKindOfClass:[Pokemon class]];
+         }] bk_map:^id(Pokemon *pokemon) {
+             @strongify(self);
+             PokemonMarker *marker = [[PokemonMarker alloc] initWithPokemon:pokemon];
+             marker.map = self.mapView;
+             return marker;
+         }];
+    }];
     
     
 }
