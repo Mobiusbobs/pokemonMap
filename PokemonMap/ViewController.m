@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "PokemonManager.h"
 @interface ViewController ()
 
 @end
@@ -18,6 +18,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [[PokemonManager getPokemonList] subscribeNext:^(id x) {
+        NSLog(@"x:%@",x);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
