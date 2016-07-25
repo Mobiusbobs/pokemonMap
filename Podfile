@@ -10,6 +10,8 @@ pod 'ReactiveCocoa', '~> 2.4.4'
 pod 'GoogleMaps', '~> 1.13'
 pod 'INTULocationManager', '~>4.2.0'
 pod 'BlocksKit', '~> 2.2.5'
+pod 'Masonry', '~> 0.6.1'
+pod 'LCBannerView', '~> 2.0.0'
 
 # Networking
 pod 'AFNetworking', '~> 2.5'
