@@ -19,6 +19,7 @@ pod 'ReactiveCoreData', '~> 0.0.2'
 
 # Track
 pod 'Google/Analytics'
+
 end
 
 target 'PokemonMapTests' do
