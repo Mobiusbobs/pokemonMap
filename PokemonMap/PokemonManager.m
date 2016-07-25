@@ -17,8 +17,10 @@
 
 + (RACSignal *)getPokemonList
 {
-    return [[LocationManagerReactify currentLocationSignal] flattenMap:^RACStream *(CLLocation *location) {
-        return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude] Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]] map:^id(RACTuple *tuple) {
+    return [[LocationManagerReactify currentLocationSignal]
+            flattenMap:^RACStream *(CLLocation *location) {
+        return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude] Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]]
+                map:^id(RACTuple *tuple) {
             return [(NSArray *)tuple.first[@"pokemon"] bk_map:^id(NSDictionary *obj) {
                 return [[Pokemon alloc] initWithData:obj];
             }];

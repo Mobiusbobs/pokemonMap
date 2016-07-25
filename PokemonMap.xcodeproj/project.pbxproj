@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		096A5BFC1D45CD21004D23E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5BFB1D45CD21004D23E6 /* main.m */; };
 		096A5BFF1D45CD22004D23E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5BFE1D45CD22004D23E6 /* AppDelegate.m */; };
-		096A5C021D45CD22004D23E6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C011D45CD22004D23E6 /* ViewController.m */; };
+		096A5C021D45CD22004D23E6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C011D45CD22004D23E6 /* MapViewController.m */; };
 		096A5C081D45CD22004D23E6 /* PokemonMap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C061D45CD22004D23E6 /* PokemonMap.xcdatamodeld */; };
 		096A5C0A1D45CD22004D23E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 096A5C091D45CD22004D23E6 /* Assets.xcassets */; };
 		096A5C181D45CD22004D23E6 /* PokemonMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C171D45CD22004D23E6 /* PokemonMapTests.m */; };
@@ -963,8 +963,8 @@
 		096A5BFB1D45CD21004D23E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		096A5BFD1D45CD21004D23E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		096A5BFE1D45CD22004D23E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		096A5C001D45CD22004D23E6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		096A5C011D45CD22004D23E6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		096A5C001D45CD22004D23E6 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		096A5C011D45CD22004D23E6 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		096A5C071D45CD22004D23E6 /* PokemonMap.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PokemonMap.xcdatamodel; sourceTree = "<group>"; };
 		096A5C091D45CD22004D23E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		096A5C0E1D45CD22004D23E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1965,8 +1965,8 @@
 				F8F2FB2C1D45ECD7000893AF /* API */,
 				096A5BFD1D45CD21004D23E6 /* AppDelegate.h */,
 				096A5BFE1D45CD22004D23E6 /* AppDelegate.m */,
-				096A5C001D45CD22004D23E6 /* ViewController.h */,
-				096A5C011D45CD22004D23E6 /* ViewController.m */,
+				096A5C001D45CD22004D23E6 /* MapViewController.h */,
+				096A5C011D45CD22004D23E6 /* MapViewController.m */,
 				096A5C091D45CD22004D23E6 /* Assets.xcassets */,
 				096A5C0E1D45CD22004D23E6 /* Info.plist */,
 				096A5C061D45CD22004D23E6 /* PokemonMap.xcdatamodeld */,
@@ -4100,8 +4100,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8F2FB2F1D45ECF5000893AF /* APIClient.m in Sources */,
-				096A5C021D45CD22004D23E6 /* ViewController.m in Sources */,
 				F8F2FB3D1D45F503000893AF /* LocationManagerReactify.m in Sources */,
+				096A5C021D45CD22004D23E6 /* MapViewController.m in Sources */,
 				096A5BFF1D45CD22004D23E6 /* AppDelegate.m in Sources */,
 				096A5C081D45CD22004D23E6 /* PokemonMap.xcdatamodeld in Sources */,
 				096A5BFC1D45CD21004D23E6 /* main.m in Sources */,
@@ -4238,7 +4238,7 @@
 				INFOPLIST_FILE = PokemonMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobiusbobs.PokemonMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokemonmap.pokemonmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -4255,7 +4255,7 @@
 				INFOPLIST_FILE = PokemonMap/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobiusbobs.PokemonMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokemonmap.pokemonmap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

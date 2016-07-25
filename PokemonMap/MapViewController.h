@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MapViewController.h
 //  PokemonMap
 //
 //  Created by ringtdblai on 2016/7/25.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MapViewController : UIViewController
+
 
 
 @end

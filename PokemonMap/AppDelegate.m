@@ -7,7 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+
+// Third Party
+#import <GoogleMaps/GoogleMaps.h>
+
+#import "MapViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -18,16 +23,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //TabBar
-    ViewController *vc = [[ViewController alloc] init];
+    [GMSServices provideAPIKey:@"AIzaSyBKypXfzCJDHxs5G2RN_SQ4vViPkWToITk"];
+    
+    MapViewController *vc = [[MapViewController alloc] init];
     UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:vc];
+
     self.window = [[UIWindow alloc]init];
-    
     self.window.frame = [UIScreen mainScreen].bounds;
-    
     self.window.rootViewController = rootVC;
     
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
