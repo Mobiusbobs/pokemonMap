@@ -74,7 +74,7 @@
 {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
                                                             longitude:151.20
-                                                                 zoom:18];
+                                                                 zoom:14];
     
     GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-120) camera:camera];
     [self.view addSubview:mapView];
@@ -108,7 +108,7 @@
          
          GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
                                                                  longitude:currentLocation.coordinate.longitude
-                                                                      zoom:18];
+                                                                      zoom:14];
          self.mapView.camera = camera;
     }];
     
@@ -145,4 +145,5 @@
     SettingViewController *vc = [SettingViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 @end
