@@ -1008,6 +1008,7 @@
 		4580AFB8B88F9D267CEF3C18 /* Pods-PokemonMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokemonMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-PokemonMap/Pods-PokemonMap.release.xcconfig"; sourceTree = "<group>"; };
 		7805576DCA24D6035FA04CA8 /* Pods-PokemonMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokemonMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokemonMap/Pods-PokemonMap.debug.xcconfig"; sourceTree = "<group>"; };
 		844ABBD90A68965C15288F1F /* libPods-PokemonMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PokemonMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F88D6A141D473E8E00B0CD20 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8F2F3FF1D45EAD5000893AF /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		F8F2F4001D45EAD5000893AF /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
 		F8F2F4011D45EAD5000893AF /* 100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100.png; sourceTree = "<group>"; };
@@ -3171,6 +3172,7 @@
 				fr,
 				nl,
 				"zh-Hant",
+				ja,
 			);
 			mainGroup = 096A5BEE1D45CD21004D23E6;
 			productRefGroup = 096A5BF81D45CD21004D23E6 /* Products */;
@@ -4242,6 +4244,7 @@
 				096A5C4C1D46298E004D23E6 /* fr */,
 				096A5C4D1D4629A2004D23E6 /* nl */,
 				096A5C4E1D4629AA004D23E6 /* zh-Hant */,
+				F88D6A141D473E8E00B0CD20 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
