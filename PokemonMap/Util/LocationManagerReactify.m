@@ -18,7 +18,6 @@
         [locMgr subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
             if (status == INTULocationStatusSuccess) {
                 [subscriber sendNext:currentLocation];
-                [subscriber sendCompleted];
             }
             else if (status == INTULocationStatusTimedOut) {
                 [subscriber sendError:[self errorWithDescription:@"TimeOut"]];

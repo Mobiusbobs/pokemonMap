@@ -20,12 +20,18 @@
 
 
 @interface MapViewController ()
+<
+    GMSMapViewDelegate
+>
 
 @property (nonatomic, weak) GMSMapView *mapView;
 
 @property (nonatomic, strong) PokemonManager *manager;
+
+@property (nonatomic, strong) NSMutableSet *pokemons;
 @property (nonatomic, strong) NSArray *pokemonMarkers;
 
+@property (nonatomic, strong) GMSMarker *centerMarker;
 @end
 
 @implementation MapViewController
@@ -44,8 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.manager reloadPokemonList];
+//    [self.manager reloadPokemonList];
     
    
 }
@@ -60,12 +65,13 @@
 {
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
                                                             longitude:151.20
-                                                                 zoom:6];
+                                                                 zoom:15];
     
     GMSMapView *mapView = [GMSMapView mapWithFrame:self.view.bounds camera:camera];
+    mapView.delegate = self;
     [self.view addSubview:mapView];
     
-    mapView.myLocationEnabled = YES;
+    mapView.myLocationEnabled = NO;
     self.mapView = mapView;
 }
 
@@ -75,15 +81,6 @@
     self.manager = [PokemonManager sharedManager];
     
     @weakify(self);
-    [[RACObserve(self.manager, currentLocation) ignore:nil]
-     subscribeNext:^(CLLocation *currentLocation) {
-         @strongify(self);
-         
-         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
-                                                                 longitude:currentLocation.coordinate.longitude
-                                                                      zoom:6];
-         self.mapView.camera = camera;
-    }];
     
     [[RACObserve(self.manager, pokemonList) ignore:nil]
      subscribeNext:^(NSArray *pokemons) {
@@ -103,7 +100,28 @@
              return marker;
          }];
     }];
-    
-    
 }
+
+- (GMSMarker *)centerMarker
+{
+    if (!_centerMarker) {
+        _centerMarker = [[GMSMarker alloc] init];
+        _centerMarker.map = self.mapView;
+    }
+    return _centerMarker;
+}
+
+#pragma mark - GMSMapViewDelegate
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    self.manager.currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
+                                                              longitude:coordinate.longitude];
+    [self.manager reloadPokemonListWithLocation:self.manager.currentLocation];
+    
+    self.centerMarker.position = coordinate;
+    
+    [self.mapView animateToLocation:coordinate];
+
+}
+
 @end

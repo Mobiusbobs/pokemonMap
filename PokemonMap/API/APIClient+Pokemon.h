@@ -7,10 +7,14 @@
 //
 
 #import "APIClient.h"
+
+#define API_GET_POKEMON_PATH(lat,lng) [NSString stringWithFormat:@"/map/data/%@/%@",lat,lng]
+
+
 @interface APIClient (Pokemon)
 
-- (RACSignal *)getPokemonListWithLat:(NSString *)lat
-                                 Lng:(NSString *)lng;
+- (RACSignal *)getPokemonListWithLat:(CGFloat)lat
+                                 Lng:(CGFloat)lng;
 
 
 @end

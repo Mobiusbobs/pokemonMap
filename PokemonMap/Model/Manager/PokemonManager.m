@@ -23,14 +23,13 @@
 
 @interface PokemonManager ()
 
-@property (nonatomic, strong, readwrite) CLLocation *currentLocation;
 @property (nonatomic, strong, readwrite) NSArray *pokemonList;
 @property (nonatomic, strong, readonly) RACSubject *reloadTrigger;
+@property (nonatomic, strong) NSMutableDictionary *pokemonDict;
 
 @end
 
 @implementation PokemonManager
-
 @synthesize reloadTrigger = _reloadTrigger;
 
 + (instancetype)sharedManager
@@ -55,39 +54,52 @@
 
 - (void)initialize
 {
-    @weakify(self);
+//    @weakify(self);
     
-    [[LocationManagerReactify currentLocationSignal]
-     subscribeNext:^(CLLocation *location) {
-        @strongify(self);
-        self.currentLocation = location;
-    } error:^(NSError *error) {
-        [AlertView showError:error withTitle:@"Error"];
-    }];
+    self.pokemonDict = [NSMutableDictionary dictionary];
+    
+//    [[LocationManagerReactify getCurrentLocationSignal]
+//     subscribeNext:^(CLLocation *location) {
+//        @strongify(self);
+//        self.currentLocation = location;
+//    } error:^(NSError *error) {
+//        [AlertView showError:error withTitle:@"Error"];
+//    }];
+    
+//    [[[[RACObserve(self, currentLocation) ignore:nil]
+//      flattenMap:^RACStream *(CLLocation *location) {
+//          @strongify(self);
+//          return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude]
+//                                                              Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]]
+//                  map:^id(RACTuple *tuple) {
+//                      @strongify(self);
+//                      NSArray *dataArray = tuple.first[@"pokemon"];
+//                      return [self mappingPokemonArray:dataArray];
+//                  }];
+//      }] combineLatestWith:self.reloadTrigger]
+//     subscribeNext:^(RACTuple *tuple) {
+//          @strongify(self);
+//          self.pokemonList = tuple.first;
+//      }];
 }
 
-- (RACSignal *)getPokemonListWithLocation:(CLLocation *)location
+- (NSArray *)mappingPokemonArray:(NSArray *)dataArray
 {
-    CGFloat latitude = location.coordinate.latitude;
-    CGFloat longitude = location.coordinate.longitude;
+    NSMutableArray *array = [NSMutableArray array];
+    for(NSDictionary *dict in dataArray)
+    {
+        NSString *uniqueId = [dict[@"id"] stringValue];
+        Pokemon *pokemon = self.pokemonDict[uniqueId];
+        if(pokemon){
+            [pokemon updateWithData:dict];
+        } else {
+            pokemon = [[Pokemon alloc] initWithData:dict];
+            [self.pokemonDict setObject:pokemon forKey:uniqueId];
+        }
+        [array addObject:pokemon];
+    }
     
-    return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",latitude]
-                                                        Lng:[NSString stringWithFormat:@"%f",longitude]]
-            map:^id(RACTuple *tuple) {
-                return [(NSArray *)tuple.first[@"pokemon"] bk_map:^id(NSDictionary *obj) {
-                    return [[Pokemon alloc] initWithData:obj];
-                }];
-            }];
-}
-
-- (RACDisposable *)reloadPokemonList
-{
-    @weakify(self);
-    return [[self getPokemonListWithLocation:self.currentLocation]
-            subscribeNext:^(NSArray *array) {
-                @strongify(self);
-                self.pokemonList = array;
-            }];
+    return [self.pokemonDict allValues];
 }
 
 - (CLLocation *)currentLocation
@@ -97,4 +109,48 @@
     }
     return _currentLocation;
 }
+
+- (RACSubject *)reloadTrigger
+{
+    if (!_reloadTrigger) {
+        _reloadTrigger = [RACSubject subject];
+    }
+    
+    return _reloadTrigger;
+}
+
+- (void)reload
+{
+    [self.reloadTrigger sendNext:@YES];
+}
+
+- (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location
+{
+    @weakify(self);
+    return [[[[APIClient sharedClient] getPokemonListWithLat:location.coordinate.latitude
+                                                         Lng:location.coordinate.longitude]
+             map:^id(RACTuple *tuple) {
+                 @strongify(self);
+                 NSArray *dataArray = tuple.first[@"pokemon"];
+                 return [self mappingPokemonArray:dataArray];
+             }] subscribeNext:^(NSArray *array) {
+                 @strongify(self);
+                 self.pokemonList = array;
+             }];
+}
+
+//- (RACSignal *)getPokemonListWithLocation:(CLLocation *)location
+//{
+//    CGFloat latitude = location.coordinate.latitude;
+//    CGFloat longitude = location.coordinate.longitude;
+//    
+//    @weakify(self);
+//    return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude]
+//                                                        Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]]
+//            map:^id(RACTuple *tuple) {
+//                @strongify(self);
+//                NSArray *dataArray = tuple.first[@"pokemon"];
+//                return [self mappingPokemonArray:dataArray];
+//            }];
+//}
 @end

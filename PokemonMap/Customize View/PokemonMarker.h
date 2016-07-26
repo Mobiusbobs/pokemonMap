@@ -13,5 +13,6 @@
 @interface PokemonMarker : GMSMarker
 
 - (instancetype)initWithPokemon:(Pokemon *)pokemon;
+- (void)updateExpireTime;
 
 @end

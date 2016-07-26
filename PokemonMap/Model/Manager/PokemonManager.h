@@ -13,11 +13,9 @@
 
 @interface PokemonManager : NSObject
 
-@property (nonatomic, strong, readonly) CLLocation *currentLocation;
+@property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong, readonly) NSArray *pokemonList;
 
 + (instancetype)sharedManager;
-- (RACDisposable *)reloadPokemonList;
-
-
+- (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location;
 @end

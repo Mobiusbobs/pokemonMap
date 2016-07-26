@@ -17,6 +17,7 @@
 @property (nonatomic, assign) float lng;
 
 - (instancetype)initWithData:(NSDictionary *)data;
+- (void)updateWithData:(NSDictionary *)data;
 
 /*
 "id": 68151055,

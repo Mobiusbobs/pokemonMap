@@ -8,13 +8,15 @@
 
 #import "APIClient+Pokemon.h"
 
+
+
 @implementation APIClient (Pokemon)
 
-- (RACSignal *)getPokemonListWithLat:(NSString *)lat
-                                 Lng:(NSString *)lng
+- (RACSignal *)getPokemonListWithLat:(CGFloat)lat
+                                 Lng:(CGFloat)lng
 {
     
-    return [self rac_GET:[NSString stringWithFormat:@"/map/data/%@/%@",lat,lng] parameters:nil];
+    return [self rac_GET:[NSString stringWithFormat:@"/map/data/%f/%f",lat,lng] parameters:nil];
 }
 
 @end
