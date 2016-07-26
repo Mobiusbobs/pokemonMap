@@ -5,6 +5,19 @@
   Created by ringtdblai on 2016/7/25.
   Copyright © 2016年 Mobiusbobs. All rights reserved.
 */
+"Pokemon Map" = "Pokemon Carte";
+"GPS Title" = "signal GPS ne sont pas disponibles";
+"GPS Subtitle" = "S'il vous plaît vérifier vos paramètres GPS";
+"Server Down Title" = "Nous sommes actuellement en cours de maintenance...";
+"Server Down Subtitle" = "Veuillez réessayer plus tard";
+"Disapper Desciption" = "disparaît à";
+"Setting" = "Paramètres";
+"Showing List" = "Affichage Liste Réglage";
+
+"ad1" = "ad1_us";
+"ad2" = "ad2_us";
+"ad3" = "ad3_us";
+
 "1" = "Bulbizarre";
 "2" = "Herbizarre";
 "3" = "Florizarre";

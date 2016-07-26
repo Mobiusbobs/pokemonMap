@@ -7,9 +7,12 @@
 //
 
 #import "PokemonManager.h"
+#import "AppDelegate.h"
+
 // Third Party
 #import <INTULocationManager/INTULocationManager.h>
 #import <BlocksKit.h>
+#import <TSMessage.h>
 
 // Model
 #import "Pokemon.h"
@@ -26,6 +29,8 @@
 @property (nonatomic, strong, readwrite) NSArray *pokemonList;
 @property (nonatomic, strong, readonly) RACSubject *reloadTrigger;
 @property (nonatomic, strong) NSMutableDictionary *pokemonDict;
+
+@property (nonatomic, strong) NSArray *blockedArray;
 
 @end
 
@@ -55,6 +60,11 @@
 - (void)initialize
 {
     self.pokemonDict = [NSMutableDictionary dictionary];
+
+    
+    RACSignal *blockedSignal = [[[NSUserDefaults standardUserDefaults] rac_channelTerminalForKey:@"pokemon_blacklist"] distinctUntilChanged];
+    
+    RAC(self,blockedArray) = blockedSignal;
 }
 
 - (NSArray *)mappingPokemonArray:(NSArray *)dataArray
@@ -73,7 +83,11 @@
         [array addObject:pokemon];
     }
     
-    return array;
+    return [array bk_reject:^BOOL(Pokemon *obj) {
+        return [self.blockedArray bk_any:^BOOL(NSString *blockId) {
+            return [obj.pokemonId isEqualToString:blockId];
+        }];
+    }];
 }
 
 - (CLLocation *)currentLocation
@@ -81,6 +95,7 @@
     if (!_currentLocation) {
         _currentLocation = [[CLLocation alloc] initWithLatitude:37.787359 longitude:-122.408227];
     }
+    
     return _currentLocation;
 }
 

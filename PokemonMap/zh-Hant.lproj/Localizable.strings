@@ -6,6 +6,19 @@
   Copyright © 2016年 Mobiusbobs. All rights reserved.
 */
 
+"Pokemon Map" = "Pokemon Map";
+"GPS Title" = "無法取得GPS信號";
+"GPS Subtitle" = "請檢查您的GPS設定";
+"Server Down Title" = "抱歉，服務正在進行短暫維修";
+"Server Down Subtitle" = "請稍候再試";
+"Disapper Desciption" = "消失時間:";
+"Setting" = "設定";
+"Showing List" = "顯示神奇寶貝設定";
+
+"ad1" = "ad1_ch";
+"ad2" = "ad2_ch";
+"ad3" = "ad3_ch";
+
 "1" = "妙蛙種子";
 "2" = "妙蛙草";
 "3" = "妙蛙花";

@@ -5,6 +5,19 @@
   Created by ringtdblai on 2016/7/25.
   Copyright © 2016年 Mobiusbobs. All rights reserved.
 */
+"Pokemon Map" = "Pokemon Karte";
+"GPS Title" = "GPS-Signal ist nicht verfügbar";
+"GPS Subtitle" = "Bitte überprüfen Sie Ihre GPS-Einstellung";
+"Server Down Title" = "Wir sind derzeit wegen Wartungsarbeiten...";
+"Server Down Subtitle" = "Bitte versuchen Sie es später noch einmal";
+"Disapper Desciption" = "verschwindet bei";
+"Setting" = "Einstellungen";
+"Showing List" = "Zeige Einstelldetailliste";
+
+"ad1" = "ad1_us";
+"ad2" = "ad2_us";
+"ad3" = "ad3_us";
+
 "1" = "Bisasam";
 "2" = "Bisaknosp";
 "3" = "Bisaflor";
