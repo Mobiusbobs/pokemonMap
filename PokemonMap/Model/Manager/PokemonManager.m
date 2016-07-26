@@ -27,6 +27,8 @@
 @property (nonatomic, strong, readwrite) NSArray *pokemonList;
 @property (nonatomic, strong, readonly) RACSubject *reloadTrigger;
 
+@property (nonatomic, strong) NSArray *blockedArray;
+
 @end
 
 @implementation PokemonManager
@@ -64,6 +66,10 @@
     } error:^(NSError *error) {
         [AlertView showError:error withTitle:@"Error"];
     }];
+    
+    RACSignal *blockedSignal = [[[NSUserDefaults standardUserDefaults] rac_channelTerminalForKey:@"pokemon_blacklist"] distinctUntilChanged];
+    
+    RAC(self,blockedArray) = blockedSignal;
 }
 
 - (RACSignal *)getPokemonListWithLocation:(CLLocation *)location
@@ -86,7 +92,11 @@
     return [[self getPokemonListWithLocation:self.currentLocation]
             subscribeNext:^(NSArray *array) {
                 @strongify(self);
-                self.pokemonList = array;
+                self.pokemonList = [array bk_reject:^BOOL(Pokemon *obj) {
+                    return [self.blockedArray bk_any:^BOOL(NSString *blockId) {
+                        return [obj.pokemonId isEqualToString:blockId];
+                    }];
+                }];
             } error:^(NSError *error) {
                 [AlertView showError:error withTitle:@"Error"];
             }];
