@@ -12,6 +12,8 @@
 
 @interface PokemonMarker : GMSMarker
 
+@property (nonatomic, weak, readonly) Pokemon *pokemon;
+
 - (instancetype)initWithPokemon:(Pokemon *)pokemon;
 - (void)updateExpireTime;
 

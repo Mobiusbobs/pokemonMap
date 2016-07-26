@@ -27,15 +27,14 @@
 @interface PokemonManager ()
 
 @property (nonatomic, strong, readwrite) NSArray *pokemonList;
-@property (nonatomic, strong, readonly) RACSubject *reloadTrigger;
 @property (nonatomic, strong) NSMutableDictionary *pokemonDict;
 
 @property (nonatomic, strong) NSArray *blockedArray;
+@property (nonatomic, strong) NSTimer *checkTimer;
 
 @end
 
 @implementation PokemonManager
-@synthesize reloadTrigger = _reloadTrigger;
 
 + (instancetype)sharedManager
 {
@@ -59,12 +58,15 @@
 
 - (void)initialize
 {
-    self.pokemonDict = [NSMutableDictionary dictionary];
-
-    
     RACSignal *blockedSignal = [[[NSUserDefaults standardUserDefaults] rac_channelTerminalForKey:@"pokemon_blacklist"] distinctUntilChanged];
     
     RAC(self,blockedArray) = blockedSignal;
+    
+    self.checkTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                       target:self
+                                                     selector:@selector(updateList)
+                                                     userInfo:nil
+                                                      repeats:YES];
 }
 
 - (NSArray *)mappingPokemonArray:(NSArray *)dataArray
@@ -99,20 +101,34 @@
     return _currentLocation;
 }
 
-- (RACSubject *)reloadTrigger
+#pragma mark - Private Method
+- (void)updateList
 {
-    if (!_reloadTrigger) {
-        _reloadTrigger = [RACSubject subject];
+    if (!self.pokemonList || [self.pokemonList count] == 0) {
+        return;
     }
     
-    return _reloadTrigger;
+    BOOL hasExpiredPokemon = [self.pokemonList bk_any:^BOOL(Pokemon * obj) {
+        return [obj.expirationTime timeIntervalSinceNow] < 0;
+    }];
+    
+    if (!hasExpiredPokemon) {
+        return;
+    }
+    
+    self.pokemonList = [self.pokemonList bk_reject:^BOOL(Pokemon *obj) {
+        return [obj.expirationTime timeIntervalSinceNow] < 0;
+    }];
+    
+    self.pokemonDict = [NSMutableDictionary dictionary];
+
+    for (Pokemon *pokemon in self.pokemonList) {
+        [self.pokemonDict setObject:pokemon forKey:pokemon.uniqueId];
+    }
+    
 }
 
-- (void)reload
-{
-    [self.reloadTrigger sendNext:@YES];
-}
-
+#pragma mark - Public Method
 - (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location
 {
     @weakify(self);

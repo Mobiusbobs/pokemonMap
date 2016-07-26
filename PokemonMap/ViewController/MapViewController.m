@@ -8,10 +8,12 @@
 
 #import "MapViewController.h"
 #import "SettingViewController.h"
+
 // Third Party
 #import <GoogleMaps/GoogleMaps.h>
 #import <BlocksKit.h>
 #import <SDCycleScrollView.h>
+#import <INTULocationManager.h>
 
 // Model
 #import "PokemonManager.h"
@@ -23,15 +25,14 @@
 @interface MapViewController ()
 <
     GMSMapViewDelegate,
-SDCycleScrollViewDelegate
+    SDCycleScrollViewDelegate
 >
 
 @property (nonatomic, weak) GMSMapView *mapView;
 
 @property (nonatomic, strong) PokemonManager *manager;
 
-@property (nonatomic, strong) NSMutableSet *pokemons;
-@property (nonatomic, strong) NSArray *pokemonMarkers;
+@property (nonatomic, strong) NSMutableArray *pokemonMarkers;
 
 @property (nonatomic, strong) GMSMarker *centerMarker;
 @end
@@ -43,6 +44,8 @@ SDCycleScrollViewDelegate
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = NSLocalizedString(@"Pokemon Map", nil);
+    self.pokemonMarkers = [NSMutableArray array];
+    
     [self setupNavBar];
     [self setupMapView];
     [self setupBanner];
@@ -50,14 +53,14 @@ SDCycleScrollViewDelegate
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self requestCurrentLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.manager reloadPokemonList];
     
-   
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,23 +119,33 @@ SDCycleScrollViewDelegate
     [[RACObserve(self.manager, pokemonList) ignore:nil]
      subscribeNext:^(NSArray *pokemons) {
         @strongify(self);
-         if (self.pokemonMarkers) {
-             [self.pokemonMarkers bk_each:^(PokemonMarker *marker) {
+         if ([self.pokemonMarkers count] > 0) {
+             [[self.pokemonMarkers bk_select:^BOOL(PokemonMarker *marker) {
+                 return !marker.pokemon;
+             }] bk_each:^(PokemonMarker *marker) {
                  marker.map = nil;
              }];
          }
-         
-         self.pokemonMarkers = [[pokemons bk_select:^BOOL(Pokemon *pokemon) {
-             return pokemon && [pokemon isKindOfClass:[Pokemon class]];
-         }] bk_map:^id(Pokemon *pokemon) {
+         NSArray *newPokemons =
+         [pokemons bk_select:^BOOL(Pokemon *pokemon) {
              @strongify(self);
+             return ![self.pokemonMarkers bk_any:^BOOL(PokemonMarker *marker) {
+                 return (marker.pokemon == pokemon);
+             }];
+         }];
+         
+         [newPokemons bk_each:^(Pokemon *pokemon) {
+             @strongify(self);
+             
              PokemonMarker *marker = [[PokemonMarker alloc] initWithPokemon:pokemon];
              marker.map = self.mapView;
-             return marker;
+             [self.pokemonMarkers addObject:marker];
          }];
+         
     }];
 }
 
+#pragma mark - Getter
 - (GMSMarker *)centerMarker
 {
     if (!_centerMarker) {
@@ -143,17 +156,41 @@ SDCycleScrollViewDelegate
     return _centerMarker;
 }
 
+#pragma mark - Private method
+- (void)requestCurrentLocation
+{
+    @weakify(self);
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyRoom
+                                       timeout:5.0
+                          delayUntilAuthorized:YES  // This parameter is optional, defaults to NO if omitted
+                                         block:^(CLLocation *currentLocation,
+                                                 INTULocationAccuracy achievedAccuracy,
+                                                 INTULocationStatus status)
+     {
+         @strongify(self);
+         [self updateCenterMarkerWithLocation:currentLocation];
+     }];
+}
+
+- (void)updateCenterMarkerWithLocation:(CLLocation *)location
+{
+    self.manager.currentLocation = location;
+    
+    [self.manager reloadPokemonListWithLocation:location];
+    
+    self.centerMarker.position = location.coordinate;
+    
+    [self.mapView animateToLocation:location.coordinate];
+}
+
 #pragma mark - GMSMapViewDelegate
 - (void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    self.manager.currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
-                                                              longitude:coordinate.longitude];
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
+                                                            longitude:coordinate.longitude];
     
-    [self.manager reloadPokemonListWithLocation:self.manager.currentLocation];
-    
-    self.centerMarker.position = coordinate;
-    
-    [self.mapView animateToLocation:coordinate];
+    [self updateCenterMarkerWithLocation:centerLocation];
 
 }
 

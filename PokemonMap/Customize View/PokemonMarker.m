@@ -11,7 +11,7 @@
 
 @interface PokemonMarker ()
 
-@property (nonatomic, weak) Pokemon *pokemon;
+@property (nonatomic, weak, readwrite) Pokemon *pokemon;
 @property (nonatomic, strong) NSTimer *timer;
 
 @end

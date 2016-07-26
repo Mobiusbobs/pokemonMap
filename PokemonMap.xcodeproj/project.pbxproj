@@ -944,7 +944,6 @@
 		F8F2FB2B1D45EB30000893AF /* pokemon.zh_cn.json in Resources */ = {isa = PBXBuildFile; fileRef = F8F2FB271D45EB30000893AF /* pokemon.zh_cn.json */; };
 		F8F2FB3F1D45FCDE000893AF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F2FB3E1D45FCDE000893AF /* MapKit.framework */; };
 		F8F2FB411D461D59000893AF /* (null) in Resources */ = {isa = PBXBuildFile; };
-		F8F2FB451D466F25000893AF /* location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F8F2FB441D466F25000893AF /* location.gpx */; };
 		F8F2FB481D46EA0C000893AF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F2FB471D46EA0C000893AF /* SettingViewController.m */; };
 		F8F2FB4B1D46EC06000893AF /* SettingSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F2FB4A1D46EC06000893AF /* SettingSwitchTableViewCell.m */; };
 		F8F2FB4E1D46F0A3000893AF /* FavoriteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8F2FB4D1D46F0A3000893AF /* FavoriteListViewController.m */; };
@@ -1928,7 +1927,6 @@
 		F8F2FB261D45EB30000893AF /* pokemon.fr.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokemon.fr.json; sourceTree = "<group>"; };
 		F8F2FB271D45EB30000893AF /* pokemon.zh_cn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokemon.zh_cn.json; sourceTree = "<group>"; };
 		F8F2FB3E1D45FCDE000893AF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		F8F2FB441D466F25000893AF /* location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = location.gpx; path = "../../../../Downloads/pokemon-go-keyboard-master/location.gpx"; sourceTree = "<group>"; };
 		F8F2FB461D46EA0C000893AF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		F8F2FB471D46EA0C000893AF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		F8F2FB491D46EC06000893AF /* SettingSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSwitchTableViewCell.h; sourceTree = "<group>"; };
@@ -1991,7 +1989,6 @@
 		096A5BF91D45CD21004D23E6 /* PokemonMap */ = {
 			isa = PBXGroup;
 			children = (
-				F8F2FB441D466F25000893AF /* location.gpx */,
 				096A5C5D1D4630CE004D23E6 /* API */,
 				096A5C3B1D461A86004D23E6 /* Model */,
 				096A5C371D461A63004D23E6 /* ViewController */,
@@ -3457,7 +3454,6 @@
 				F8F2FAEA1D45EADC000893AF /* 709.png in Resources */,
 				F8F2FACB1D45EADB000893AF /* 681.png in Resources */,
 				F8F2FA871D45EADB000893AF /* 665.png in Resources */,
-				F8F2FB451D466F25000893AF /* location.gpx in Resources */,
 				F8F2F9DF1D45EADB000893AF /* 541.png in Resources */,
 				F8F2F87C1D45EADB000893AF /* 275.png in Resources */,
 				F8F2F8921D45EADB000893AF /* 294.png in Resources */,
