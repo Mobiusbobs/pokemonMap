@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Setting";
+    self.title = NSLocalizedString(@"Setting", nil);
     [self constructView];
     // Do any additional setup after loading the view.
 }
@@ -56,7 +56,7 @@
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -82,7 +82,8 @@
         case 0:
         {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            cell.textLabel.text = @"Customize Display";
+            cell.textLabel.text = NSLocalizedString(@"Showing List", nil);
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
             break;
@@ -142,7 +143,7 @@
     switch (section)
     {
         case 0:
-            sectionName = NSLocalizedString(@"General Settings", nil);
+            sectionName = NSLocalizedString(@"Setting", nil);
             break;
         case 1:
             sectionName = NSLocalizedString(@"Social Settings", nil);

@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong, readonly) CLLocation *currentLocation;
 @property (nonatomic, strong, readonly) NSArray *pokemonList;
+@property (nonatomic, weak) UIViewController *errorVc;
 
 + (instancetype)sharedManager;
 - (RACDisposable *)reloadPokemonList;

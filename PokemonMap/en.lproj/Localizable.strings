@@ -5,6 +5,20 @@
   Created by ringtdblai on 2016/7/25.
   Copyright © 2016年 Mobiusbobs. All rights reserved.
 */
+"Pokemon Map" = "Pokemon Map";
+"GPS Title" = "GPS signal is not avalible";
+"GPS Subtitle" = "Please check your GPS setting";
+"Server Down Title" = "We're currently down for maintenance...";
+"Server Down Subtitle" = "Please try again later";
+"Disapper Desciption" = "Disappears at";
+"Setting" = "Settings";
+"Showing List" = "Showing List Setting";
+
+"ad1" = "ad1_us";
+"ad2" = "ad2_us";
+"ad3" = "ad3_us";
+
+
 "1" = "Bulbasaur";
 "2" = "Ivysaur";
 "3" = "Venusaur";

@@ -7,9 +7,12 @@
 //
 
 #import "PokemonManager.h"
+#import "AppDelegate.h"
+
 // Third Party
 #import <INTULocationManager/INTULocationManager.h>
 #import <BlocksKit.h>
+#import <TSMessage.h>
 
 // Model
 #import "Pokemon.h"
@@ -58,14 +61,44 @@
 - (void)initialize
 {
     @weakify(self);
-    
-    [[LocationManagerReactify currentLocationSignal]
-     subscribeNext:^(CLLocation *location) {
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
-        self.currentLocation = location;
-    } error:^(NSError *error) {
-        [AlertView showError:error withTitle:@"Error"];
+        if (status == INTULocationStatusSuccess) {
+            self.currentLocation = currentLocation;
+        }
+        else if (status == INTULocationStatusTimedOut) {
+            [TSMessage showNotificationInViewController:self.errorVc
+                                                  title:NSLocalizedString(@"GPS Title", nil)
+                                               subtitle:NSLocalizedString(@"GPS Subtitle", nil)
+                                                  image:nil
+                                                   type:TSMessageNotificationTypeError
+                                               duration:TSMessageNotificationDurationEndless
+                                               callback:nil
+                                            buttonTitle:nil
+                                         buttonCallback:^{
+                                             NSLog(@"User tapped the button");
+                                         }
+                                             atPosition:TSMessageNotificationPositionTop
+                                   canBeDismissedByUser:YES];
+        }
+        else {
+            [TSMessage showNotificationInViewController:self.errorVc
+                                                  title:NSLocalizedString(@"GPS Title", nil)
+                                               subtitle:NSLocalizedString(@"GPS Subtitle", nil)
+                                                  image:nil
+                                                   type:TSMessageNotificationTypeError
+                                               duration:TSMessageNotificationDurationEndless
+                                               callback:nil
+                                            buttonTitle:nil
+                                         buttonCallback:^{
+                                             NSLog(@"User tapped the button");
+                                         }
+                                             atPosition:TSMessageNotificationPositionTop
+                                   canBeDismissedByUser:YES];
+        }
     }];
+
     
     RACSignal *blockedSignal = [[[NSUserDefaults standardUserDefaults] rac_channelTerminalForKey:@"pokemon_blacklist"] distinctUntilChanged];
     
@@ -98,7 +131,19 @@
                     }];
                 }];
             } error:^(NSError *error) {
-                [AlertView showError:error withTitle:@"Error"];
+                [TSMessage showNotificationInViewController:self.errorVc
+                                                      title:NSLocalizedString(@"Server Down Title", nil)
+                                                   subtitle:NSLocalizedString(@"Server Down Subtitle", nil)
+                                                      image:nil
+                                                       type:TSMessageNotificationTypeError
+                                                   duration:TSMessageNotificationDurationEndless
+                                                   callback:nil
+                                                buttonTitle:nil
+                                             buttonCallback:^{
+                                                 NSLog(@"User tapped the button");
+                                             }
+                                                 atPosition:TSMessageNotificationPositionTop
+                                       canBeDismissedByUser:YES];
             }];
 }
 
@@ -107,6 +152,7 @@
     if (!_currentLocation) {
         _currentLocation = [[CLLocation alloc] initWithLatitude:37.787359 longitude:-122.408227];
     }
+    
     return _currentLocation;
 }
 @end

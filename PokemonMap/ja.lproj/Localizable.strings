@@ -1,3 +1,17 @@
+
+"Pokemon Map" = "ポケモンマップ";
+"GPS Title" = "GPS信号が検出できません";
+"GPS Subtitle" = "GPS設定をご確認ください。";
+"Server Down Title" = "申し訳ございませんが、サービスは修理しております。";
+"Server Down Subtitle" = "暫くしてからもう一度お試しください。";
+"Disapper Desciption" = "消失時間：";
+"Setting" = "設定";
+"Showing List" = "ポケモン設定を表示します";
+
+"ad1" = "ad1_jp";
+"ad2" = "ad2_jp";
+"ad3" = "ad3_jp";
+
 "1" = "フシギダネ";
 "2" = "フシギソウ";
 "3" = "フシギバナ";

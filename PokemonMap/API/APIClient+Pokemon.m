@@ -14,7 +14,7 @@
                                  Lng:(NSString *)lng
 {
     
-    return [self rac_GET:[NSString stringWithFormat:@"/map/data/%@/%@",lat,lng] parameters:nil];
+    return [[self rac_GET:[NSString stringWithFormat:@"/map/data/%@/%@",lat,lng] parameters:nil] logAll];
 }
 
 @end

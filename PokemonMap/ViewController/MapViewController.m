@@ -11,7 +11,7 @@
 // Third Party
 #import <GoogleMaps/GoogleMaps.h>
 #import <BlocksKit.h>
-#import <LCBannerView.h>
+#import <SDCycleScrollView.h>
 
 // Model
 #import "PokemonManager.h"
@@ -21,7 +21,7 @@
 
 
 @interface MapViewController ()
-<LCBannerViewDelegate>
+<SDCycleScrollViewDelegate>
 
 @property (nonatomic, weak) GMSMapView *mapView;
 
@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"PokemonMap";
+    self.title = NSLocalizedString(@"Pokemon Map", nil);
     [self setupNavBar];
     [self setupMapView];
     [self setupBanner];
@@ -62,12 +62,13 @@
 
 #pragma mark - Serup UI
 - (void)setupNavBar
-{    
+{
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     UIBarButtonItem *imagetestButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"]
                                                                         style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(settingButtonClicked:)];
-        self.navigationItem.rightBarButtonItem = imagetestButton;
+    self.navigationItem.rightBarButtonItem = imagetestButton;
 }
 
 - (void)setupMapView
@@ -85,33 +86,26 @@
 
 - (void)setupBanner
 {
-    LCBannerView *bannerView = [[LCBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 120, [UIScreen mainScreen].bounds.size.width, 120)
-                                                          delegate:self
-                                                         imageName:@"banner"
-                                                             count:3
-                                                      timeInterval:3.0f
-                                     currentPageIndicatorTintColor:[UIColor orangeColor]
-                                            pageIndicatorTintColor:[UIColor whiteColor]];
     
-    [self.view addSubview:bannerView];
+    UIImage *image1 = [UIImage imageNamed:NSLocalizedString(@"ad1", nil)];
+    UIImage *image2 = [UIImage imageNamed:NSLocalizedString(@"ad2", nil)];
+    UIImage *image3 = [UIImage imageNamed:NSLocalizedString(@"ad3", nil)];
+    
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, self.view.frame.size.height - 120, [UIScreen mainScreen].bounds.size.width, 120) imageNamesGroup:@[image1,image2,image3]];
+    cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    cycleScrollView.delegate = self;
+    
+    
+    
+    [self.view addSubview:cycleScrollView];
 }
 
 #pragma mark - Binding
 - (void)bindManager
 {
     self.manager = [PokemonManager sharedManager];
-    
+    self.manager.errorVc = self;
     @weakify(self);
-    [[RACObserve(self.manager, currentLocation) ignore:nil]
-     subscribeNext:^(CLLocation *currentLocation) {
-         @strongify(self);
-         
-         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
-                                                                 longitude:currentLocation.coordinate.longitude
-                                                                      zoom:14];
-         self.mapView.camera = camera;
-    }];
-    
     [[RACObserve(self.manager, pokemonList) ignore:nil]
      subscribeNext:^(NSArray *pokemons) {
         @strongify(self);
@@ -134,10 +128,10 @@
     
 }
 
-- (void)bannerView:(LCBannerView *)bannerView didClickedImageIndex:(NSInteger)index {
-    
-    NSLog(@"You clicked image in %@ at index: %ld", bannerView, (long)index);
-    [self.manager reloadPokemonList];
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://taps.io/Bboowji2"]];
 }
 
 - (void)settingButtonClicked:(id)sender
