@@ -71,7 +71,8 @@
     mapView.delegate = self;
     [self.view addSubview:mapView];
     
-    mapView.myLocationEnabled = NO;
+    mapView.myLocationEnabled = YES;
+    mapView.settings.myLocationButton = YES;
     self.mapView = mapView;
 }
 
@@ -116,6 +117,7 @@
 {
     self.manager.currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
                                                               longitude:coordinate.longitude];
+    
     [self.manager reloadPokemonListWithLocation:self.manager.currentLocation];
     
     self.centerMarker.position = coordinate;

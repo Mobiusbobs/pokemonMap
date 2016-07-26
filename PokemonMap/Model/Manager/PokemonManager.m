@@ -54,33 +54,7 @@
 
 - (void)initialize
 {
-//    @weakify(self);
-    
     self.pokemonDict = [NSMutableDictionary dictionary];
-    
-//    [[LocationManagerReactify getCurrentLocationSignal]
-//     subscribeNext:^(CLLocation *location) {
-//        @strongify(self);
-//        self.currentLocation = location;
-//    } error:^(NSError *error) {
-//        [AlertView showError:error withTitle:@"Error"];
-//    }];
-    
-//    [[[[RACObserve(self, currentLocation) ignore:nil]
-//      flattenMap:^RACStream *(CLLocation *location) {
-//          @strongify(self);
-//          return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude]
-//                                                              Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]]
-//                  map:^id(RACTuple *tuple) {
-//                      @strongify(self);
-//                      NSArray *dataArray = tuple.first[@"pokemon"];
-//                      return [self mappingPokemonArray:dataArray];
-//                  }];
-//      }] combineLatestWith:self.reloadTrigger]
-//     subscribeNext:^(RACTuple *tuple) {
-//          @strongify(self);
-//          self.pokemonList = tuple.first;
-//      }];
 }
 
 - (NSArray *)mappingPokemonArray:(NSArray *)dataArray
@@ -99,7 +73,7 @@
         [array addObject:pokemon];
     }
     
-    return [self.pokemonDict allValues];
+    return array;
 }
 
 - (CLLocation *)currentLocation
@@ -139,18 +113,4 @@
              }];
 }
 
-//- (RACSignal *)getPokemonListWithLocation:(CLLocation *)location
-//{
-//    CGFloat latitude = location.coordinate.latitude;
-//    CGFloat longitude = location.coordinate.longitude;
-//    
-//    @weakify(self);
-//    return [[[APIClient sharedClient] getPokemonListWithLat:[NSString stringWithFormat:@"%f",location.coordinate.latitude]
-//                                                        Lng:[NSString stringWithFormat:@"%f",location.coordinate.longitude]]
-//            map:^id(RACTuple *tuple) {
-//                @strongify(self);
-//                NSArray *dataArray = tuple.first[@"pokemon"];
-//                return [self mappingPokemonArray:dataArray];
-//            }];
-//}
 @end
