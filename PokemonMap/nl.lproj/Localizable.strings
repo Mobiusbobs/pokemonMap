@@ -10,9 +10,10 @@
 "GPS Subtitle" = "Bitte überprüfen Sie Ihre GPS-Einstellung";
 "Server Down Title" = "Wir sind derzeit wegen Wartungsarbeiten...";
 "Server Down Subtitle" = "Bitte versuchen Sie es später noch einmal";
-"Disapper Desciption" = "verschwindet bei";
+"Disapper Desciption" = "verschwindet bei ";
 "Setting" = "Einstellungen";
 "Showing List" = "Zeige Einstelldetailliste";
+"Tutorial1" = "1.Long drücken Scanposition zu ändern\n2.You Ihre Vorführung Liste bei der Einrichtung anpassen können";
 
 "ad1" = "ad1_us";
 "ad2" = "ad2_us";

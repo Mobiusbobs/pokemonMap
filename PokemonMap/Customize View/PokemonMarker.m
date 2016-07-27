@@ -47,7 +47,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm:ss"];
     
-    self.snippet = [NSString stringWithFormat:@"Expire Time:%@",[formatter stringFromDate:expirationTime]];
+    self.snippet = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"Disapper Desciption", nil),[formatter stringFromDate:expirationTime]];
 }
 
 @end

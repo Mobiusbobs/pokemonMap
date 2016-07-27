@@ -67,6 +67,7 @@ PODS:
   - LCBannerView (2.0.0):
     - SDWebImage (~> 3.7.6)
   - Masonry (0.6.4)
+  - MBProgressHUD (0.9.2)
   - ReactiveCocoa (2.4.7):
     - ReactiveCocoa/UI (= 2.4.7)
   - ReactiveCocoa/Core (2.4.7):
@@ -93,6 +94,7 @@ DEPENDENCIES:
   - INTULocationManager (~> 4.2.0)
   - LCBannerView (~> 2.0.0)
   - Masonry (~> 0.6.1)
+  - MBProgressHUD (~> 0.9)
   - ReactiveCocoa (~> 2.4.4)
   - ReactiveCoreData (~> 0.0.2)
   - SDCycleScrollView (~> 1.64)
@@ -123,6 +125,7 @@ SPEC CHECKSUMS:
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   LCBannerView: 1366fc685dc3e23762dc1f39a525abbeef85ccf6
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   ReactiveCoreData: 1ca5406c2d2fdab8a40ba939f59c41eda9f469a3
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c

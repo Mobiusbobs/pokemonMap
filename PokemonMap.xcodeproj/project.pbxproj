@@ -24,6 +24,8 @@
 		096A5C631D4630CE004D23E6 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C611D4630CE004D23E6 /* APIClient.m */; };
 		096A5C701D46368C004D23E6 /* NSArray+Immutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 096A5C6F1D46368C004D23E6 /* NSArray+Immutable.m */; };
 		B45B2B7441F5BEEA7FAA194D /* libPods-PokemonMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 844ABBD90A68965C15288F1F /* libPods-PokemonMap.a */; };
+		F8EC61A01D4860F300602116 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC619F1D4860F300602116 /* KLCPopup.m */; };
+		F8EC61A31D4872E800602116 /* GAWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8EC61A21D4872E800602116 /* GAWrapper.m */; };
 		F8F2F7911D45EADB000893AF /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = F8F2F3FF1D45EAD5000893AF /* 1.png */; };
 		F8F2F7921D45EADB000893AF /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = F8F2F4001D45EAD5000893AF /* 10.png */; };
 		F8F2F7931D45EADB000893AF /* 100.png in Resources */ = {isa = PBXBuildFile; fileRef = F8F2F4011D45EAD5000893AF /* 100.png */; };
@@ -1008,6 +1010,10 @@
 		7805576DCA24D6035FA04CA8 /* Pods-PokemonMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokemonMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokemonMap/Pods-PokemonMap.debug.xcconfig"; sourceTree = "<group>"; };
 		844ABBD90A68965C15288F1F /* libPods-PokemonMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PokemonMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88D6A141D473E8E00B0CD20 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F8EC619E1D4860F300602116 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
+		F8EC619F1D4860F300602116 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
+		F8EC61A11D4872E800602116 /* GAWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAWrapper.h; sourceTree = "<group>"; };
+		F8EC61A21D4872E800602116 /* GAWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAWrapper.m; sourceTree = "<group>"; };
 		F8F2F3FF1D45EAD5000893AF /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		F8F2F4001D45EAD5000893AF /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
 		F8F2F4011D45EAD5000893AF /* 100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100.png; sourceTree = "<group>"; };
@@ -2041,6 +2047,8 @@
 				096A5C351D4619E9004D23E6 /* LocationManagerReactify.m */,
 				096A5C311D4619C4004D23E6 /* AlertView.h */,
 				096A5C321D4619C4004D23E6 /* AlertView.m */,
+				F8EC61A11D4872E800602116 /* GAWrapper.h */,
+				F8EC61A21D4872E800602116 /* GAWrapper.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2070,6 +2078,8 @@
 		096A5C421D461FBB004D23E6 /* Customize View */ = {
 			isa = PBXGroup;
 			children = (
+				F8EC619E1D4860F300602116 /* KLCPopup.h */,
+				F8EC619F1D4860F300602116 /* KLCPopup.m */,
 				F8F2FB4F1D46F113000893AF /* PokemonTableViewCell.h */,
 				F8F2FB501D46F113000893AF /* PokemonTableViewCell.m */,
 				F8F2FB491D46EC06000893AF /* SettingSwitchTableViewCell.h */,
@@ -4184,7 +4194,9 @@
 				096A5C631D4630CE004D23E6 /* APIClient.m in Sources */,
 				096A5C581D463076004D23E6 /* PokemonManager.m in Sources */,
 				F8F2FB481D46EA0C000893AF /* SettingViewController.m in Sources */,
+				F8EC61A31D4872E800602116 /* GAWrapper.m in Sources */,
 				096A5C5C1D463081004D23E6 /* Pokemon.m in Sources */,
+				F8EC61A01D4860F300602116 /* KLCPopup.m in Sources */,
 				096A5BFF1D45CD22004D23E6 /* AppDelegate.m in Sources */,
 				096A5C081D45CD22004D23E6 /* PokemonMap.xcdatamodeld in Sources */,
 				096A5C451D461FF5004D23E6 /* PokemonMarker.m in Sources */,

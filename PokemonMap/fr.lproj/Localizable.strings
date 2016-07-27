@@ -10,9 +10,10 @@
 "GPS Subtitle" = "S'il vous plaît vérifier vos paramètres GPS";
 "Server Down Title" = "Nous sommes actuellement en cours de maintenance...";
 "Server Down Subtitle" = "Veuillez réessayer plus tard";
-"Disapper Desciption" = "disparaît à";
+"Disapper Desciption" = "disparaît à ";
 "Setting" = "Paramètres";
 "Showing List" = "Affichage Liste Réglage";
+"Tutorial1" = "1.Long appuyez sur pour changer d'emplacement scan\n2.You peut personnaliser votre liste montrant dans la mise";
 
 "ad1" = "ad1_us";
 "ad2" = "ad2_us";

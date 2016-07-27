@@ -14,12 +14,16 @@
 #import <BlocksKit.h>
 #import <SDCycleScrollView.h>
 #import <INTULocationManager.h>
+#import <MBProgressHUD.h>
+#import <Masonry.h>
+#import "KLCPopup.h"
 
 // Model
 #import "PokemonManager.h"
 #import "Pokemon.h"
 
 #import "PokemonMarker.h"
+#import "GAWrapper.h"
 
 
 @interface MapViewController ()
@@ -35,6 +39,9 @@
 @property (nonatomic, strong) NSMutableArray *pokemonMarkers;
 
 @property (nonatomic, strong) GMSMarker *centerMarker;
+
+@property (nonatomic, assign) int bannerHeight;
+
 @end
 
 @implementation MapViewController
@@ -45,6 +52,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = NSLocalizedString(@"Pokemon Map", nil);
     self.pokemonMarkers = [NSMutableArray array];
+    
+    self.bannerHeight = floorf(90.0f*self.view.frame.size.width/728.0f);
     
     [self setupNavBar];
     [self setupMapView];
@@ -77,21 +86,41 @@
                                                                        target:self
                                                                        action:@selector(settingButtonClicked:)];
     self.navigationItem.rightBarButtonItem = imagetestButton;
+    
+    UIBarButtonItem *questionButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"question"]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(showTutorial)];
+    self.navigationItem.leftBarButtonItem = questionButton;
+    
+    
 }
 
 - (void)setupMapView
 {
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:37.778704
+                                                            longitude:-122.389520
                                                                  zoom:14];
     
-    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-120) camera:camera];
+    GMSMapView *mapView = [GMSMapView mapWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-self.bannerHeight-64) camera:camera];
     mapView.delegate = self;
     [self.view addSubview:mapView];
     
     mapView.myLocationEnabled = YES;
     mapView.settings.myLocationButton = YES;
     self.mapView = mapView;
+    
+    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [reloadButton setImage:[UIImage imageNamed:@"reload"] forState:UIControlStateNormal];
+    [reloadButton addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:reloadButton];
+    
+    [reloadButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@40);
+        make.bottom.equalTo(self.mapView).with.offset(-35);
+        make.left.equalTo(self.mapView).with.offset(15);
+    }];
+    
 }
 
 - (void)setupBanner
@@ -101,8 +130,9 @@
     UIImage *image2 = [UIImage imageNamed:NSLocalizedString(@"ad2", nil)];
     UIImage *image3 = [UIImage imageNamed:NSLocalizedString(@"ad3", nil)];
     
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, self.view.frame.size.height - 120, [UIScreen mainScreen].bounds.size.width, 120) imageNamesGroup:@[image1,image2,image3]];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, self.view.frame.size.height - self.bannerHeight -64, [UIScreen mainScreen].bounds.size.width, self.bannerHeight) imageNamesGroup:@[image1,image2,image3]];
     cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    cycleScrollView.showPageControl = NO;
     cycleScrollView.delegate = self;
     
     
@@ -187,11 +217,17 @@
 #pragma mark - GMSMapViewDelegate
 - (void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
+    [GAWrapper sendReport:@"Publish Post" andProperty:@""];
     CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
                                                             longitude:coordinate.longitude];
     
     [self updateCenterMarkerWithLocation:centerLocation];
 
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    [GAWrapper sendReport:@"Play Video" andProperty:@""];
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -203,6 +239,59 @@
 {
     SettingViewController *vc = [SettingViewController new];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)reloadData
+{
+    [GAWrapper sendReport:@"Publish Post" andProperty:@""];
+    [self.manager reloadPokemonListWithLocation:self.manager.currentLocation];
+}
+
+- (void)showTutorial
+{
+    UIView* contentView = [[UIView alloc] init];
+    contentView.backgroundColor = [UIColor whiteColor];
+    contentView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width - 100, 250);
+    contentView.layer.cornerRadius = 10;
+    contentView.clipsToBounds = YES;
+    
+    UIImageView *iconImage = [UIImageView new];
+    iconImage.image = [UIImage imageNamed:@"icon"];
+    [contentView addSubview:iconImage];
+    [iconImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@80);
+        make.top.equalTo(contentView).with.offset(10);
+        make.centerX.equalTo(contentView);
+    }];
+    
+    UILabel *label1 = [UILabel new];
+    label1.font = [UIFont systemFontOfSize:16];
+    label1.numberOfLines = 0;
+    
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:NSLocalizedString(@"Tutorial1", nil)];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setLineSpacing:5];
+    [attrString addAttribute:NSParagraphStyleAttributeName
+                       value:style
+                       range:NSMakeRange(0, NSLocalizedString(@"Tutorial1", nil).length)];
+    
+    [attrString addAttribute:NSForegroundColorAttributeName
+                       value:[UIColor blackColor]
+                       range:NSMakeRange(0, NSLocalizedString(@"Tutorial1", nil).length)];
+    
+    [attrString addAttribute:NSKernAttributeName
+                       value:@(1.2)
+                       range:NSMakeRange(0, NSLocalizedString(@"Tutorial1", nil).length)];
+    label1.attributedText = attrString;
+    [contentView addSubview:label1];
+    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView).with.offset(16);
+        make.right.equalTo(contentView).with.offset(-16);
+        make.top.equalTo(iconImage.mas_bottom).with.offset(16);
+    }];
+    
+    KLCPopup* popup = [KLCPopup popupWithContentView:contentView];
+    [popup show];
 }
 
 @end

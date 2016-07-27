@@ -10,9 +10,10 @@
 "GPS Subtitle" = "Please check your GPS setting";
 "Server Down Title" = "We're currently down for maintenance...";
 "Server Down Subtitle" = "Please try again later";
-"Disapper Desciption" = "Disappears at";
+"Disapper Desciption" = "Disappears at ";
 "Setting" = "Settings";
 "Showing List" = "Showing List Setting";
+"Tutorial1" = "1.Long press to change scan location\n2.You can customize your showing list in setting ";
 
 "ad1" = "ad1_us";
 "ad2" = "ad2_us";

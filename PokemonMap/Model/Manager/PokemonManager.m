@@ -13,6 +13,7 @@
 #import <INTULocationManager/INTULocationManager.h>
 #import <BlocksKit.h>
 #import <TSMessage.h>
+#import <MBProgressHUD.h>
 
 // Model
 #import "Pokemon.h"
@@ -131,6 +132,7 @@
 #pragma mark - Public Method
 - (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location
 {
+    [MBProgressHUD showHUDAddedTo:self.errorVc.view animated:YES];
     @weakify(self);
     return [[[[APIClient sharedClient] getPokemonListWithLat:location.coordinate.latitude
                                                          Lng:location.coordinate.longitude]
@@ -140,7 +142,25 @@
                  return [self mappingPokemonArray:dataArray];
              }] subscribeNext:^(NSArray *array) {
                  @strongify(self);
+                 [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];
                  self.pokemonList = array;
+             } error:^(NSError *error) {
+                 @strongify(self);
+                 [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];
+                 [TSMessage showNotificationInViewController:self.errorVc
+                                                       title:NSLocalizedString(@"Server Down Title", nil)
+                                                    subtitle:NSLocalizedString(@"Server Down Subtitle", nil)
+                                                       image:nil
+                                                        type:TSMessageNotificationTypeError
+                                                    duration:TSMessageNotificationDurationEndless
+                                                    callback:nil
+                                                 buttonTitle:nil
+                                              buttonCallback:^{
+                                                  NSLog(@"User tapped the button");
+                                              }
+                                                  atPosition:TSMessageNotificationPositionTop
+                                        canBeDismissedByUser:YES];
+                 
              }];
 }
 
