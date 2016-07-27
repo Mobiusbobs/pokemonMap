@@ -34,7 +34,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>NSLocationWhenInUseUsageDescription</key><string>需要定位</string>
-    <key>NSLocationAlwaysUsageDescription</key><string>需要定位</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Let&apos;s get some pokemons!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Let&apos;s get some pokemons!</string>
 </dict>
 </plist>
