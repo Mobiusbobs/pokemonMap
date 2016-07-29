@@ -970,7 +970,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		096A5BF71D45CD21004D23E6 /* PokemonMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		096A5BF71D45CD21004D23E6 /* PokeMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		096A5BFB1D45CD21004D23E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		096A5BFD1D45CD21004D23E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		096A5BFE1D45CD22004D23E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1985,7 +1985,7 @@
 		096A5BF81D45CD21004D23E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				096A5BF71D45CD21004D23E6 /* PokemonMap.app */,
+				096A5BF71D45CD21004D23E6 /* PokeMap.app */,
 				096A5C131D45CD22004D23E6 /* PokemonMapTests.xctest */,
 				096A5C1E1D45CD22004D23E6 /* PokemonMapUITests.xctest */,
 			);
@@ -3099,7 +3099,7 @@
 			);
 			name = PokemonMap;
 			productName = PokemonMap;
-			productReference = 096A5BF71D45CD21004D23E6 /* PokemonMap.app */;
+			productReference = 096A5BF71D45CD21004D23E6 /* PokeMap.app */;
 			productType = "com.apple.product-type.application";
 		};
 		096A5C121D45CD22004D23E6 /* PokemonMapTests */ = {
@@ -4357,7 +4357,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pokemonmap.pokemonmap;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PokeMap;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4376,7 +4376,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pokemonmap.pokemonmap;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PokeMap;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
