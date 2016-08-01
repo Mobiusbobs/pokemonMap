@@ -16,7 +16,8 @@
                                  Lng:(CGFloat)lng
 {
     
-    return [self rac_GET:[NSString stringWithFormat:@"/map/data/%f/%f",lat,lng] parameters:nil];
+    return [self rac_GET:[NSString stringWithFormat:@"/api/pokemon.php?bounds=%f,%f,%f,%f",lat-0.01,lng-0.01,lat+0.01,lng+0.01] parameters:nil];
+    
 }
 
 @end

@@ -75,7 +75,7 @@
     NSMutableArray *array = [NSMutableArray array];
     for(NSDictionary *dict in dataArray)
     {
-        NSString *uniqueId = [dict[@"id"] stringValue];
+        NSString *uniqueId = dict[@"id"];
         Pokemon *pokemon = self.pokemonDict[uniqueId];
         if(pokemon){
             [pokemon updateWithData:dict];
@@ -138,8 +138,14 @@
                                                          Lng:location.coordinate.longitude]
              map:^id(RACTuple *tuple) {
                  @strongify(self);
-                 NSArray *dataArray = tuple.first[@"pokemon"];
-                 return [self mappingPokemonArray:dataArray];
+                 NSArray *dataArray = tuple.first[@"pokemons"];
+                 NSArray *newDataArray = [dataArray bk_map:^id(NSDictionary *obj) {
+                     NSString *uniqueID = [NSString stringWithFormat:@"%@:%@:%@",obj[@"pokemon_name"],obj[@"latitude"],obj[@"longitude"]];
+                     NSMutableDictionary *newObj = [[NSMutableDictionary alloc]initWithDictionary:obj];
+                     [newObj setObject:uniqueID forKey:@"id"];
+                     return newObj;
+                 }];
+                 return [self mappingPokemonArray:newDataArray];
              }] subscribeNext:^(NSArray *array) {
                  @strongify(self);
                  [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];

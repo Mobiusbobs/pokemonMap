@@ -15,7 +15,7 @@
     static APIClient *client = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        client = [[APIClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://pokevision.com/map"]];
+        client = [[APIClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://skiplagged.com"]];
     });
     
     return client;
@@ -26,6 +26,7 @@
     self = [super initWithBaseURL:url];
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setTimeoutInterval:90.0];
 
