@@ -266,8 +266,7 @@
     GMSVisibleRegion visibleRegion = self.mapView.projection.visibleRegion;
     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion:visibleRegion];
     
-    [self updateCenterMarkerWithCenterLocation:self.manager.currentLocation
-                                        bounds:bounds];
+    [self.manager reloadPokemonListWithBounds:bounds];
 
 }
 
