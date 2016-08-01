@@ -9,6 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 
 @interface PokemonManager : NSObject
@@ -19,4 +20,6 @@
 
 + (instancetype)sharedManager;
 - (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location;
+- (RACDisposable *)reloadPokemonListWithBounds:(GMSCoordinateBounds *)bounds;
+
 @end

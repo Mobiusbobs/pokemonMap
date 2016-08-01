@@ -129,6 +129,22 @@
     
 }
 
+- (NSArray *)processPokemonData:(NSArray *)dataArray
+{
+    NSArray *finalDataArray = [dataArray bk_map:^id(NSDictionary *obj) {
+        NSString *uniqueID = [NSString stringWithFormat:@"%@:%@:%@",
+                              obj[@"pokemon_name"],
+                              obj[@"latitude"],
+                              obj[@"longitude"]];
+        
+        NSMutableDictionary *newObj = [[NSMutableDictionary alloc]initWithDictionary:obj];
+        [newObj setObject:uniqueID forKey:@"id"];
+        return newObj;
+    }];
+
+    return finalDataArray;
+}
+
 #pragma mark - Public Method
 - (RACDisposable *)reloadPokemonListWithLocation:(CLLocation *)location
 {
@@ -139,13 +155,8 @@
              map:^id(RACTuple *tuple) {
                  @strongify(self);
                  NSArray *dataArray = tuple.first[@"pokemons"];
-                 NSArray *newDataArray = [dataArray bk_map:^id(NSDictionary *obj) {
-                     NSString *uniqueID = [NSString stringWithFormat:@"%@:%@:%@",obj[@"pokemon_name"],obj[@"latitude"],obj[@"longitude"]];
-                     NSMutableDictionary *newObj = [[NSMutableDictionary alloc]initWithDictionary:obj];
-                     [newObj setObject:uniqueID forKey:@"id"];
-                     return newObj;
-                 }];
-                 return [self mappingPokemonArray:newDataArray];
+                 NSArray *finalDataArray = [self processPokemonData:dataArray];
+                 return [self mappingPokemonArray:finalDataArray];
              }] subscribeNext:^(NSArray *array) {
                  @strongify(self);
                  [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];
@@ -169,5 +180,40 @@
                  
              }];
 }
+
+- (RACDisposable *)reloadPokemonListWithBounds:(GMSCoordinateBounds *)bounds
+{
+    [MBProgressHUD showHUDAddedTo:self.errorVc.view animated:YES];
+    @weakify(self);
+    return [[[[APIClient sharedClient] getPokemonListWithBounds:bounds]
+             map:^id(RACTuple *tuple) {
+                 @strongify(self);
+                 NSArray *dataArray = tuple.first[@"pokemons"];
+                 NSArray *finalDataArray = [self processPokemonData:dataArray];
+                 return [self mappingPokemonArray:finalDataArray];
+             }] subscribeNext:^(NSArray *array) {
+                 @strongify(self);
+                 [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];
+                 self.pokemonList = array;
+             } error:^(NSError *error) {
+                 @strongify(self);
+                 [MBProgressHUD hideAllHUDsForView:self.errorVc.view animated:YES];
+                 [TSMessage showNotificationInViewController:self.errorVc
+                                                       title:NSLocalizedString(@"Server Down Title", nil)
+                                                    subtitle:NSLocalizedString(@"Server Down Subtitle", nil)
+                                                       image:nil
+                                                        type:TSMessageNotificationTypeError
+                                                    duration:TSMessageNotificationDurationEndless
+                                                    callback:nil
+                                                 buttonTitle:nil
+                                              buttonCallback:^{
+                                                  NSLog(@"User tapped the button");
+                                              }
+                                                  atPosition:TSMessageNotificationPositionTop
+                                        canBeDismissedByUser:YES];
+                 
+             }];
+}
+
 
 @end

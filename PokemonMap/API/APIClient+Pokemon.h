@@ -7,6 +7,7 @@
 //
 
 #import "APIClient.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 #define API_GET_POKEMON_PATH(lat,lng) [NSString stringWithFormat:@"/map/data/%@/%@",lat,lng]
 
@@ -16,5 +17,6 @@
 - (RACSignal *)getPokemonListWithLat:(CGFloat)lat
                                  Lng:(CGFloat)lng;
 
+- (RACSignal *)getPokemonListWithBounds:(GMSCoordinateBounds *)bounds;
 
 @end

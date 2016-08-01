@@ -108,11 +108,14 @@
     
     mapView.myLocationEnabled = YES;
     mapView.settings.myLocationButton = YES;
+    mapView.settings.compassButton = YES;
     self.mapView = mapView;
     
     UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [reloadButton setImage:[UIImage imageNamed:@"reload"] forState:UIControlStateNormal];
-    [reloadButton addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventTouchUpInside];
+    [reloadButton addTarget:self
+                     action:@selector(reloadData)
+           forControlEvents:UIControlEventTouchUpInside];
     [self.mapView addSubview:reloadButton];
     
     [reloadButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,6 +212,18 @@
     
     [self.manager reloadPokemonListWithLocation:location];
     
+    [self.mapView animateToLocation:location.coordinate];
+    self.centerMarker.position = location.coordinate;
+    
+}
+
+- (void)updateCenterMarkerWithCenterLocation:(CLLocation *)location
+                                      bounds:(GMSCoordinateBounds *)bounds
+{
+    self.manager.currentLocation = location;
+    
+    [self.manager reloadPokemonListWithBounds:bounds];
+    
     self.centerMarker.position = location.coordinate;
     
     [self.mapView animateToLocation:location.coordinate];
@@ -221,8 +236,11 @@
     CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude
                                                             longitude:coordinate.longitude];
     
-    [self updateCenterMarkerWithLocation:centerLocation];
-
+    GMSVisibleRegion visibleRegion = mapView.projection.visibleRegion;
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion:visibleRegion];
+    
+    [self updateCenterMarkerWithCenterLocation:centerLocation
+                                        bounds:bounds];
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
@@ -230,6 +248,7 @@
     [GAWrapper sendReport:@"Play Video" andProperty:@""];
 }
 
+#pragma mark - SDCycleScrollView Delegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://taps.io/Bboowji2"]];
@@ -244,7 +263,12 @@
 - (void)reloadData
 {
     [GAWrapper sendReport:@"Publish Post" andProperty:@""];
-    [self.manager reloadPokemonListWithLocation:self.manager.currentLocation];
+    GMSVisibleRegion visibleRegion = self.mapView.projection.visibleRegion;
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion:visibleRegion];
+    
+    [self updateCenterMarkerWithCenterLocation:self.manager.currentLocation
+                                        bounds:bounds];
+
 }
 
 - (void)showTutorial

@@ -16,8 +16,21 @@
                                  Lng:(CGFloat)lng
 {
     
-    return [self rac_GET:[NSString stringWithFormat:@"/api/pokemon.php?bounds=%f,%f,%f,%f",lat-0.01,lng-0.01,lat+0.01,lng+0.01] parameters:nil];
+    return [self rac_GET:[NSString stringWithFormat:@"/api/pokemon.php?bounds=%f,%f,%f,%f",lat-0.02,lng-0.02,lat+0.02,lng+0.02] parameters:nil];
     
 }
 
+- (RACSignal *)getPokemonListWithBounds:(GMSCoordinateBounds *)bounds
+{
+    NSString *boundsString = [NSString stringWithFormat:@"%f,%f,%f,%f",
+                              bounds.southWest.latitude,
+                              bounds.southWest.longitude,
+                              bounds.northEast.latitude,
+                              bounds.northEast.longitude];
+    
+    NSDictionary *param = @{@"bounds":boundsString};
+    
+    return [self rac_GET:@"/api/pokemon.php" parameters:param];
+    
+}
 @end
