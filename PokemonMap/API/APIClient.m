@@ -26,7 +26,6 @@
     self = [super initWithBaseURL:url];
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         self.requestSerializer = [AFJSONRequestSerializer serializer];
         [self.requestSerializer setTimeoutInterval:90.0];
 
