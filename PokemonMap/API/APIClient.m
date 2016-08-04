@@ -15,7 +15,7 @@
     static APIClient *client = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        client = [[APIClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://skiplagged.com"]];
+        client = [[APIClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://map_api.goradar.io"]];
     });
     
     return client;

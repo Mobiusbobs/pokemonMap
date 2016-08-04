@@ -131,18 +131,7 @@
 
 - (NSArray *)processPokemonData:(NSArray *)dataArray
 {
-    NSArray *finalDataArray = [dataArray bk_map:^id(NSDictionary *obj) {
-        NSString *uniqueID = [NSString stringWithFormat:@"%@:%@:%@",
-                              obj[@"pokemon_name"],
-                              obj[@"latitude"],
-                              obj[@"longitude"]];
-        
-        NSMutableDictionary *newObj = [[NSMutableDictionary alloc]initWithDictionary:obj];
-        [newObj setObject:uniqueID forKey:@"id"];
-        return newObj;
-    }];
-
-    return finalDataArray;
+    return dataArray;
 }
 
 #pragma mark - Public Method

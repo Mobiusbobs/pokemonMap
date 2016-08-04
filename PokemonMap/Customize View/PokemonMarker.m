@@ -45,7 +45,7 @@
 {
     NSDate *expirationTime = self.pokemon.expirationTime;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setDateFormat:@"YYYY:MM:DD:HH:mm:ss"];
     
     self.snippet = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"Disapper Desciption", nil),[formatter stringFromDate:expirationTime]];
 }

@@ -21,8 +21,10 @@
 
 - (void)updateWithData:(NSDictionary *)data
 {
-    self.uniqueId = data[@"id"];
-    self.expirationTime = [NSDate dateWithTimeIntervalSince1970:[data[@"expires"] doubleValue]];
+    self.uniqueId = data[@"encounter_id"];
+    NSLog(@"%f",[data[@"disappear_time"] doubleValue]);
+    self.expirationTime = [NSDate dateWithTimeIntervalSince1970:[data[@"disappear_time"] doubleValue]];
+    
     self.pokemonId = [data[@"pokemon_id"] stringValue];
     self.lat = [data[@"latitude"] floatValue];
     self.lng = [data[@"longitude"] floatValue];
@@ -32,7 +34,7 @@
 {
     if ([object isKindOfClass:[Pokemon class]]) {
         Pokemon *pm = (Pokemon *)object;
-        return (pm.lat == self.lat && pm.lng == self.lng && pm.expirationTime == self.expirationTime);
+        return [pm.uniqueId isEqualToString:self.uniqueId];
     }
     return NO;
 }
