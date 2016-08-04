@@ -23,7 +23,7 @@
 {
     self.uniqueId = data[@"encounter_id"];
    
-    NSTimeInterval timeInterval = (double)[data[@"disappear_time"] doubleValue] / 1000;
+    NSTimeInterval timeInterval = (long)[data[@"disappear_time"] longValue] / 1000;
     self.expirationTime = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     
     self.pokemonId = [data[@"pokemon_id"] stringValue];
