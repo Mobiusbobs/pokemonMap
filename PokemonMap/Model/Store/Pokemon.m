@@ -22,8 +22,9 @@
 - (void)updateWithData:(NSDictionary *)data
 {
     self.uniqueId = data[@"encounter_id"];
-    NSLog(@"%f",[data[@"disappear_time"] doubleValue]);
-    self.expirationTime = [NSDate dateWithTimeIntervalSince1970:[data[@"disappear_time"] doubleValue]];
+   
+    NSTimeInterval timeInterval = (double)[data[@"disappear_time"] doubleValue] / 1000;
+    self.expirationTime = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     
     self.pokemonId = [data[@"pokemon_id"] stringValue];
     self.lat = [data[@"latitude"] floatValue];
